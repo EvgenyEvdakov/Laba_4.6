@@ -19,3 +19,34 @@ pytest = "^8.3.4"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = [".", "src"]
+
+[tool.isort]
+include_trailing_comma = true
+line_length = 79
+lines_after_imports = 2
+
+[tool.flake8]
+exclude = [
+    ".git",
+    ".idea",
+    "doc",
+    "tests",
+    ".gitignore"
+]
+max-line-length = 120
+ignore = ["E203", "F403", "F405", "F841"]
+
+[tool.mypy]
+ignore_missing_imports = true
+disable_error_code = ["arg-type"]
+
+[tool.black]
+line-length = 120
+exclude = """
+.idea/
+tests/
+doc/
+"""
