@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import unittest
 import sys
+import unittest
 
-sys.path.append('../src')
-from primer import Worker, Staff
+
+sys.path.append("../src")
+from primer import Staff, Worker
 
 
 class TestStaff(unittest.TestCase):

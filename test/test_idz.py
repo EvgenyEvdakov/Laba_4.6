@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import unittest
-import tempfile
 import os
-from pathlib import Path
 import sys
+import tempfile
+import unittest
+from pathlib import Path
 
-sys.path.append('../src')
-from idz import DirectoryItem, XMLDataHandler, get_directory_contents, build_tree
+
+sys.path.append("../src")
+from idz import DirectoryItem, XMLDataHandler, build_tree, get_directory_contents
 
 
 class TestDirectoryItem(unittest.TestCase):
@@ -20,7 +21,7 @@ class TestDirectoryItem(unittest.TestCase):
             children=[
                 DirectoryItem(name="file1.txt", path="/path/to/test_dir/file1.txt", is_dir=False),
                 DirectoryItem(name="sub_dir", path="/path/to/test_dir/sub_dir", is_dir=True),
-            ]
+            ],
         )
         xml_element = item.to_xml_element()
         recreated_item = DirectoryItem.from_xml_element(xml_element)
@@ -37,7 +38,7 @@ class TestXMLDataHandler(unittest.TestCase):
             children=[
                 DirectoryItem(name="file1.txt", path="/path/to/test_dir/file1.txt", is_dir=False),
                 DirectoryItem(name="sub_dir", path="/path/to/test_dir/sub_dir", is_dir=True),
-            ]
+            ],
         )
 
         with tempfile.NamedTemporaryFile(delete=False) as temp_file:
@@ -65,14 +66,14 @@ class TestUtilityFunctions(unittest.TestCase):
         self.temp_dir.cleanup()
 
     def test_get_directory_contents(self):
-        args = type('Namespace', (object,), {"a": True, "d": False, "f": False})
+        args = type("Namespace", (object,), {"a": True, "d": False, "f": False})
         contents = get_directory_contents(self.test_dir, args)
 
         expected = {self.test_dir / "file1.txt", self.test_dir / "file2.txt", self.test_dir / "subdir"}
         self.assertEqual(set(contents), expected)
 
     def test_build_tree(self):
-        args = type('Namespace', (object,), {"a": True, "d": False, "f": False, "t": False})
+        args = type("Namespace", (object,), {"a": True, "d": False, "f": False, "t": False})
         tree = build_tree(self.test_dir, args)
 
         self.assertEqual(tree.name, self.test_dir.name)

@@ -5,16 +5,16 @@ import argparse
 import pathlib
 import subprocess
 import xml.etree.ElementTree as ET
-from typing import Optional, List, Protocol
 from dataclasses import dataclass, field
+from typing import List, Optional, Protocol
+
 
 # Интерфейс для сохранения/загрузки данных
 class DataHandler(Protocol):
-    def save(self, data: 'DirectoryItem', filename: str) -> None:
-        ...
+    def save(self, data: "DirectoryItem", filename: str) -> None: ...
 
-    def load(self, filename: str) -> 'DirectoryItem':
-        ...
+    def load(self, filename: str) -> "DirectoryItem": ...
+
 
 # DataClass для представления файла или каталога
 @dataclass
@@ -22,7 +22,7 @@ class DirectoryItem:
     name: str
     path: str
     is_dir: bool
-    children: List['DirectoryItem'] = field(default_factory=list)
+    children: List["DirectoryItem"] = field(default_factory=list)
 
     def to_xml_element(self) -> ET.Element:
         """Конвертирует DirectoryItem в XML-элемент."""
@@ -32,15 +32,16 @@ class DirectoryItem:
         return element
 
     @staticmethod
-    def from_xml_element(element: ET.Element) -> 'DirectoryItem':
+    def from_xml_element(element: ET.Element) -> "DirectoryItem":
         """Создает DirectoryItem из XML-элемента."""
         children = [DirectoryItem.from_xml_element(child) for child in element]
         return DirectoryItem(
             name=element.get("name", ""),
             path=element.get("path", ""),
             is_dir=(element.tag == "directory"),
-            children=children
+            children=children,
         )
+
 
 class XMLDataHandler:
     """Класс для обработки данных XML формата."""

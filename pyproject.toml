@@ -24,8 +24,9 @@ build-backend = "poetry.core.masonry.api"
 pythonpath = [".", "src"]
 
 [tool.isort]
+profile = "black"
 include_trailing_comma = true
-line_length = 79
+skip = ["test/test_idz.py"]
 lines_after_imports = 2
 
 [tool.flake8]
@@ -37,16 +38,17 @@ exclude = [
     ".gitignore"
 ]
 max-line-length = 120
-ignore = ["E203", "F403", "F405", "F841"]
+ignore = ["E203", "F403", "F405", "F841", "E303", "E302", "E402", "F401", "E704"]
 
 [tool.mypy]
 ignore_missing_imports = true
 disable_error_code = ["arg-type"]
 
 [tool.black]
-line-length = 120
+line-length = 140
 exclude = """
 .idea/
 tests/
 doc/
+test_idz.py
 """
